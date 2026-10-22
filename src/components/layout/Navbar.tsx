@@ -65,15 +65,12 @@ export default function Navbar() {
             aria-label="Idea Squad Agency — Home"
           >
             <Image
-              src="/images/idea-squad-logo.png"
+              src="/images/idea-squad-logo.svg"
               alt="Idea Squad Agency Logo"
               width={140}
               height={50}
               className="h-10 w-auto object-contain"
               priority
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = "/images/idea-squad-logo.svg";
-              }}
             />
           </Link>
 

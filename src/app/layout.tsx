@@ -28,7 +28,13 @@ export const metadata: Metadata = {
     images: [siteConfig.meta.ogImage],
   },
   robots: { index: true, follow: true },
-  icons: { icon: "/favicon.ico", apple: "/apple-touch-icon.png" },
+  icons: {
+    icon: [
+      { url: "/images/idea-squad-logo-mark.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

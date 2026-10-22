@@ -27,8 +27,8 @@ export const siteConfig = {
 
   // ── Meta / SEO ───────────────────────────────────────────────────────────
   meta: {
-    ogImage: "/images/og-image.jpg",  // TODO: create OG image
-    twitterHandle: "@ideasquad",      // TODO: replace
+    ogImage: "/images/idea-squad-logo.png",
+    twitterHandle: "@ideasquad",
     locale: "en_US",
   },
 };

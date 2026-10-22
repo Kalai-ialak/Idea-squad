@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowRight, ChevronRight } from "lucide-react";
 
@@ -10,6 +11,23 @@ const LightbulbScene = dynamic(() => import("@/components/three/LightbulbScene")
   loading: () => (
     <div className="w-full h-full flex items-center justify-center" aria-hidden="true">
       <div className="w-20 h-20 rounded-full border border-[#7C3AED]/30 animate-pulse" />
+    </div>
+  ),
+});
+
+// Lazy-load 3D Logo — client only with static SVG fallback
+const Logo3D = dynamic(() => import("@/components/three/Logo3D"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center">
+      <Image
+        src="/images/idea-squad-logo.svg"
+        alt="Idea Squad Agency Logo"
+        width={220}
+        height={135}
+        className="h-14 w-auto object-contain opacity-70 animate-pulse"
+        priority
+      />
     </div>
   ),
 });
@@ -43,6 +61,28 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 items-center">
           {/* ── Left: Text ── */}
           <div className="flex flex-col gap-6 max-w-xl">
+            {/* Logo Showcase: 3D interactive logo on desktop, clean static SVG on mobile */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="w-full max-w-[280px] sm:max-w-[320px]"
+            >
+              <div className="hidden md:block w-full h-[140px] sm:h-[160px]">
+                <Logo3D size="md" interactive={true} />
+              </div>
+              <div className="block md:hidden py-1">
+                <Image
+                  src="/images/idea-squad-logo.svg"
+                  alt="Idea Squad Agency Logo"
+                  width={220}
+                  height={135}
+                  className="h-12 w-auto object-contain"
+                  priority
+                />
+              </div>
+            </motion.div>
+
             {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}

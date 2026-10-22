@@ -78,10 +78,10 @@ export default function Footer() {
           {/* Brand column */}
           <div className="lg:col-span-1 flex flex-col gap-5">
             <Image
-              src="/images/idea-squad-logo.png"
+              src="/images/idea-squad-logo.svg"
               alt="Idea Squad Agency"
-              width={130}
-              height={46}
+              width={140}
+              height={50}
               className="h-10 w-auto object-contain"
             />
             <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
