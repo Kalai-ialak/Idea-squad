@@ -5,29 +5,21 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowRight, ChevronRight } from "lucide-react";
 
-// Lazy-load 3D scene — client only
-const LightbulbScene = dynamic(() => import("@/components/three/LightbulbScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center" aria-hidden="true">
-      <div className="w-20 h-20 rounded-full border border-[#7C3AED]/30 animate-pulse" />
-    </div>
-  ),
-});
-
-// Lazy-load 3D Logo — client only with static SVG fallback
+// Lazy-load 3D Hero Logo — client only with static SVG fallback
 const Logo3D = dynamic(() => import("@/components/three/Logo3D"), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full flex items-center justify-center">
-      <Image
-        src="/images/idea-squad-logo.svg"
-        alt="Idea Squad Agency Logo"
-        width={220}
-        height={135}
-        className="h-14 w-auto object-contain opacity-70 animate-pulse"
-        priority
-      />
+      <div className="relative w-72 sm:w-80 h-44 flex items-center justify-center">
+        <Image
+          src="/images/idea-squad-logo.svg"
+          alt="Idea Squad Agency Logo"
+          width={400}
+          height={245}
+          className="w-full h-auto object-contain opacity-60 animate-pulse"
+          priority
+        />
+      </div>
     </div>
   ),
 });
@@ -58,31 +50,9 @@ export default function HeroSection() {
       </div>
 
       <div className="container-wide relative z-10 pt-28 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-6 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 items-center">
           {/* ── Left: Text ── */}
           <div className="flex flex-col gap-6 max-w-xl">
-            {/* Logo Showcase: 3D interactive logo on desktop, clean static SVG on mobile */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="w-full max-w-[280px] sm:max-w-[320px]"
-            >
-              <div className="hidden md:block w-full h-[140px] sm:h-[160px]">
-                <Logo3D size="md" interactive={true} />
-              </div>
-              <div className="block md:hidden py-1">
-                <Image
-                  src="/images/idea-squad-logo.svg"
-                  alt="Idea Squad Agency Logo"
-                  width={220}
-                  height={135}
-                  className="h-12 w-auto object-contain"
-                  priority
-                />
-              </div>
-            </motion.div>
-
             {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -166,23 +136,36 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* ── Right: 3D Scene ── */}
+          {/* ── Right: 3D Showcase (Hero 3D Logo on Desktop, Static SVG on Mobile) ── */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="relative h-[380px] sm:h-[460px] lg:h-[560px]"
+            transition={{ duration: 0.9, delay: 0.15 }}
+            className="relative w-full flex items-center justify-center"
           >
-            {/* Glow halo behind scene */}
-            <div
-              className="absolute inset-0 rounded-full opacity-30 blur-3xl"
-              style={{
-                background: "radial-gradient(circle, #7C3AED 0%, transparent 65%)",
-                transform: "scale(0.7)",
-              }}
-              aria-hidden="true"
-            />
-            <LightbulbScene />
+            {/* Desktop: Interactive 3D Extruded Logo (md and above) */}
+            <div className="hidden md:block w-full">
+              <Logo3D size="hero" interactive={true} />
+            </div>
+
+            {/* Mobile: Clean static SVG with soft ambient glow (below md) */}
+            <div className="block md:hidden relative w-full max-w-[340px] mx-auto py-6 flex items-center justify-center">
+              <div
+                className="absolute inset-0 rounded-full opacity-30 blur-2xl pointer-events-none"
+                style={{
+                  background: "radial-gradient(circle, #E11D48 0%, #7C3AED 50%, transparent 70%)",
+                }}
+                aria-hidden="true"
+              />
+              <Image
+                src="/images/idea-squad-logo.svg"
+                alt="Idea Squad Agency Logo"
+                width={340}
+                height={208}
+                className="relative z-10 w-full h-auto object-contain drop-shadow-[0_10px_30px_rgba(225,29,72,0.25)]"
+                priority
+              />
+            </div>
           </motion.div>
         </div>
       </div>
